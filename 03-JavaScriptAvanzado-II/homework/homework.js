@@ -48,9 +48,8 @@ a invocar a cb, porque el resultado estará guardado en la "memoria caché".
       if (cache.hasOwnProperty(num)){
       return cache[num];
     } else {
-      let resultado = cb(num) 
-      cache[num] = resultado;
-      return resultado;
+      cache[num] = cb(num);
+      return cache[num];
     }
    }
   }

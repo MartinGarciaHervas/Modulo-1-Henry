@@ -12,10 +12,9 @@ function cacheFunction(cb){
       console.log(cache);
       return cache[num];
   } else {
-      let resultado = cb(num)
-      cache[num] = resultado;
+      cache[num] = cb(num);
       console.log(cache);
-      return resultado;
+      return cache[num];
   }
  }
 }
