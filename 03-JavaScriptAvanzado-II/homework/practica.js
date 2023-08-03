@@ -6,15 +6,17 @@ const cb = function(x) {
 
   function cacheFunction(cb){
     let cache = {};
-    // return function (num){
-    //   if (cache.hasOwnProperty(num)){
-    //   return cache[num];
-    // } else {
-    //   cache[num] = cb(num);
-    //   return cache[num];
-    // }
     return function (num){
-    return cache.hasOwnProperty(num) ? cache[num] : cache[num] = cb(num); //ternario ---> sirve para algunos condicionales simples como este.
+      if (cache.hasOwnProperty(num)){
+      return cache[num];
+    } else {
+      
+      cache[num] = cb(num);
+      return cache[num];
+    }
+  //   return function (num){
+  //   return cache.hasOwnProperty(num) ? cache[num] : cache[num] = cb(num); //ternario ---> sirve para algunos condicionales simples como este.
+  // }
   }
 }
 
