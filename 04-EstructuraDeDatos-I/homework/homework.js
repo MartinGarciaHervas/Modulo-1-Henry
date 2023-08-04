@@ -43,15 +43,22 @@ siguientes métodos:
 Pueden utilizar class o función constructora.
 */
 
-class Queue {
-  constructor() {
-    this.array = [];
-  }
-}
-Queue.prototype.enqueue = function(x){
-  Queue.this.array.push(x);
+function Queue () {
+  this.array = [];
 }
 
+Queue.prototype.enqueue = function(valor){
+  this.array.push(valor);
+}
+
+Queue.prototype.dequeue = function(){
+  if(this.array.length === 0) return undefined;
+  return this.array.shift();
+}
+
+Queue.prototype.size = function(){
+  return this.array.length;
+}
 
 /*⚠️ No modificar nada debajo de esta línea ⚠️*/
 module.exports = {

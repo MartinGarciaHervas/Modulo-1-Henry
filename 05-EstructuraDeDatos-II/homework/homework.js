@@ -4,15 +4,90 @@
 Implementar la clase LinkedList, definiendo los siguientes métodos:
   - add: agrega un nuevo nodo al final de la lista;
   - remove: elimina el último nodo de la lista y retorna su valor (tener en cuenta el caso particular de una lista de un solo nodo y de una lista vacía);
-  - search: recibe un parámetro y lo busca dentro de la lista, con una particularidad: el parámetro puede ser un valor o un callback. En el primer caso, buscamos un nodo cuyo valor coincida con lo buscado; en el segundo, buscamos un nodo cuyo valor, al ser pasado como parámetro del callback, retorne true. 
+  - search: recibe un parámetro y lo busca dentro de la lista, con una particularidad: el parámetro puede ser un valor o un callback. En el primer caso, buscamos
+   un nodo cuyo valor coincida con lo buscado; en el segundo, buscamos un nodo cuyo valor, al ser pasado como parámetro del callback, retorne true. 
   EJEMPLO 
   search(3) busca un nodo cuyo valor sea 3;
   search(isEven), donde isEven es una función que retorna true cuando recibe por parámetro un número par, busca un nodo cuyo valor sea un número par.
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
-function LinkedList() {}
 
-function Node(value) {}
+//Funciones Constructoras necesarias para crear una LinkedList
+
+
+function Node(data) {
+  this.value = data;
+  this.next = null;
+}
+
+function LinkedList() {     
+  this._length = 0;
+  this.head = null;
+}
+
+// Creo los nuevos metodos personalizados mediante el prototype
+
+LinkedList.prototype.add = function(value) {
+  let node = new Node(value);
+  
+  let current = this.head;
+
+  if(!current){
+    this.head = node;
+  } else {
+    while(current.next){
+      current = current.next;
+    }
+    current.next = node;
+  }
+  this._length++;
+}
+
+LinkedList.prototype.remove = function() {
+  let current = this.head;
+  let anterior = null;
+  
+  if(!current) return null; 
+  
+  while(current.next){
+    anterior = current;
+    current = current.next;
+  } 
+  
+  !anterior ? this.head = null : anterior.next = null;
+  
+  this._length--
+  return current.value;
+}
+
+LinkedList.prototype.search = function(parametro) {
+  let current = this.head;
+  let valor = parametro;
+
+  if(typeof valor === "function"){
+
+    let anterior = null;
+
+    if(valor(current.value)) return current.value;
+
+    while (current.next){
+      anterior = current;
+      if(valor(anterior.value)) return current.value;
+      current = current.next
+    } if(valor(current.value)) return current.value;
+  } 
+  
+  else {
+  
+  if(current.value === valor) return current.value;
+  
+  while (current.next){
+    if(current.next.value === valor) return current.next.value;
+    current = current.next
+  }
+}
+  return null;
+}
 
 /* EJERCICIO 2
 Implementar la clase HashTable.
