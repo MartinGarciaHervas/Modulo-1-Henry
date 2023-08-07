@@ -117,20 +117,23 @@ HashTable.prototype.hash = function (clave){
   let count = 0;
   let value = clave;
 
-  if(typeof clave === "string"){
   for(let i = 0; i < value.length; i++){
     count = count + value.charCodeAt(i);
   }
     
   return count % this.numBuckets
-} throw new TypeError("Keys must be strings");
 }
 
 
 HashTable.prototype.set = function (clave, valor){
-  let conjunto = {};
-  conjunto[clave] = valor;
-  this.table[this.hash(clave)] = conjunto;
+
+  if(typeof clave !== "string") throw new TypeError("Keys must be strings");
+
+  if(this.table[this.hash(clave)] === undefined){
+  this.table[this.hash(clave)] = {};                  //creo un objeto dentro de ese bucket, y ahi voy agregando las clave:valor
+  }
+  this.table[this.hash(clave)][clave] = valor;
+
 }
 
 HashTable.prototype.get = function (clave){
@@ -139,9 +142,7 @@ HashTable.prototype.get = function (clave){
 }
 
 HashTable.prototype.hasKey = function (clave){
-  if (this.table[this.hash(clave)][clave]){
-    return true;
-  } return false;
+  return this.table[this.hash(clave)].hasOwnProperty([clave])
 }
 
 // No modifiquen nada debajo de esta linea
