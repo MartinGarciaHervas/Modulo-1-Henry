@@ -84,7 +84,13 @@ function BinarySearchTree(value) {
       }
    };
    
-   BinarySearchTree.prototype.breadthFirstForEach = function(){};
+   BinarySearchTree.prototype.breadthFirstForEach = function(cb, almacen = []){
+      cb(this.value);
+
+      if(this.left) almacen.push(this.left);
+      if(this.right) almacen.push(this.right);
+      if(almacen.length > 0) almacen.shift().breadthFirstForEach(cb, almacen);
+   };
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
