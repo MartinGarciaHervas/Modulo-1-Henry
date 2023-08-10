@@ -39,28 +39,35 @@ function mergeSort(array) {
   } return array
 }
 
+
 function dividir(array) {
-
-  let izq = [];
-  let der = [];
-  let mitad = Math.round(array.length / 2);
-
-  for(let i = 0; i < array.length ; i++){
-      if(i < mitad) izq.push(array[i]);
-      if(i >= mitad) der.push(array[i]);
-  } return [izq, der]
-}
-
-function merge(izq, der) {
   
-  let res = [];
-  while (izq.length && der.length)
-      res.push(izq[0] < der[0] ? izq.shift() : der.shift());
-  return res.concat(izq.length ? izq : der);
-}
+  let mitad = Math.round(array.length / 2);
+  let der = array.slice(mitad) //  slice() es un metodo q me resume lo que hacia en el for
+  let izq = array.slice(0, (mitad))
+  
+  return [izq, der]
 
-// No modificar nada debajo de esta línea
-// --------------------------------
+  // let der = [];
+  // let izq = [];
+  
+  // for(let i = 0; i < array.length ; i++){
+  //       if(i < mitad) izq.push(array[i]);
+  //       if(i >= mitad) der.push(array[i]);
+  //   }return [izq, der]
+  }
+  
+  function merge(izq, der) {
+  
+    let res = [];
+    while (izq.length && der.length)
+      res.push(izq[0] < der[0] ? izq.shift() : der.shift());
+    return res.concat(izq.length ? izq : der);
+  }
+  console.log(mergeSort([2,7,5,9,1,100,56,17,24]));
+  
+  // No modificar nada debajo de esta línea
+  // --------------------------------
 
 module.exports = {
   quickSort,
