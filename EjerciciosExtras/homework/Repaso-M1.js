@@ -16,29 +16,16 @@ const {
 
 let countArray = function (array) {
     // Tu código aca:
-    //   let total = 0;
-    //   //[[6,5,7,8]]
-    //   array.forEach((elemento) => {
-    //     if (Array.isArray(elemento)) {
-    //       total += countArray(elemento);
-    //     } else {
-    //       total += elemento;
-    //     }
-    //   });
-    //   return total;
-    // REDUCE
-    //   return array.reduce((total, elemento) => {
-    //     if (Array.isArray(elemento)) {
-    //         return total += countArray(elemento)
-    //     } else return total += elemento
-    //   });
-  
-    //opcion con flat
-  
-    return array.reduce(
-      (total, element) =>
-        (total += Array.isArray(element) ? countArray(element) : element)
-    );
+    let count = 0;
+
+    for(let elemento of array){
+        if(Array.isArray(elemento)){
+          count += countArray(elemento);
+        } else {
+          count += elemento;
+        }
+    }
+    return count;
   };
   
   // Implementar la función countProps: a partir de un objeto en el cual cada propiedad puede contener
@@ -63,9 +50,7 @@ let countArray = function (array) {
   let countProps = function (obj) {
     // Tu código aca:
   
-    let total = Object.keys(obj).length;
-  
-    console.log(Object.keys(obj));
+    let total = Object.keys(obj).length; // el metodo Object.keys te devuelve un array con las propiedades del objeto.
   
     for (let prop in obj) {
       if (typeof obj[prop] === "object" && !Array.isArray(obj[prop])) {
@@ -75,8 +60,6 @@ let countArray = function (array) {
   
     return total;
   };
-  
-  countProps(objeto1);
   
   // Implementar el método changeNotNumbers dentro del prototype de LinkedList que deberá cambiar
   // aquellos valores que no puedan transformarse a numeros por 'Kiricocho' y devolver la cantidad de cambios que hizo
@@ -93,7 +76,9 @@ let countArray = function (array) {
     count = 0;
   
     while (current) {
-      if (isNaN(Number(current.value))) {
+      if (isNaN(Number(current.value))) {  //el metodo isNaN te devuelve true si no es un numero, y el metodo Number(), 
+        // intenta pasar a numero un valor, si no puede devuelve NaN
+
         //Number(false) = 0
         /// si el valor es NaN me da true
         current.value = "Kiricocho";
@@ -143,9 +128,6 @@ let countArray = function (array) {
     };
   };
   
-  let multiplicaPor4 = closureMult(4);
-  
-  multiplicaPor4(2);
   
   // Implementar el método sum dentro del prototype de BinarySearchTree
   // que debe retornar la suma total de los valores dentro de cada nodo del arbol
